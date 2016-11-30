@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: zuul-gateway
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 30
+
+server:
+  port: 8081
+
+logging:
+  level:
+    com.netflix.discovery: error
+
+zuul:
+#  PreDecorationFilter.pre.disable: true
+  retryable: true
+  ignored-services: '*'
+  prefix: /api
+  strip-prefix: true
+  servlet-path: /zuul
+  add-host-header: true
+  routes:
+    spring-simple-service:
+      serviceId: spring-simple-service
+      path: /simple/**
+      sensitiveHeaders: testSensitive,Cookie,Set-Cookie,Authorization
+    spring-simple-service2:
+      path: /simple2/**
+      url: forward:/internal
+
+spring-simple-service:
+  hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 30000
+  ribbon:
+    ReadTimeout: 30000
+    ConnectTimeout: 5000
+
+br.com.gateway:
+  custom-headers:
+    gateway-name: Zuul
+    host-name: localhost
