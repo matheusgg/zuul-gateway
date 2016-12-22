@@ -1,0 +1,71 @@
+version: '2'
+
+services:
+#  zuul-gateway:
+#    image: zuul-gateway
+#    ports:
+#     - "8080:8080"
+#    environment:
+#     - DELAY=10
+#     - SPRING_CLOUD_CONFIG_URI=http://spring-cloud-config-server:8888
+#    depends_on:
+#     - spring-cloud-config-server
+#     - spring-eureka-service1
+#     - spring-eureka-service2
+  spring-simple-service:
+    image: spring-simple-service
+    ports:
+     - "8082:8082"
+    environment:
+     - DELAY=10
+     - SPRING_CLOUD_CONFIG_URI=http://spring-cloud-config-server:8888
+    depends_on:
+     - spring-cloud-config-server
+     - spring-eureka-service1
+     - spring-eureka-service2
+  spring-hystrix-service:
+    image: spring-hystrix-service
+    ports:
+     - "8081:8081"
+    environment:
+     - DELAY=10
+     - SPRING_CLOUD_CONFIG_URI=http://spring-cloud-config-server:8888
+    depends_on:
+     - spring-cloud-config-server
+     - spring-eureka-service1
+     - spring-eureka-service2
+  spring-eureka-service1:
+    image: spring-eureka-service
+    ports:
+     - "8761:8761"
+    environment:
+     - DELAY=10
+     - SPRING_CLOUD_CONFIG_URI=http://spring-cloud-config-server:8888
+    depends_on:
+     - spring-cloud-config-server
+  spring-eureka-service2:
+    image: spring-eureka-service
+    ports:
+     - "8762:8761"
+    environment:
+     - DELAY=10
+     - SPRING_CLOUD_CONFIG_URI=http://spring-cloud-config-server:8888
+    depends_on:
+     - spring-cloud-config-server
+  spring-cloud-config-server:
+    image: spring-cloud-config-server
+    ports:
+     - "8888:8888"
+    environment:
+     - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL=docker
+    depends_on:
+     - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+     - "4369:4369"
+     - "5671:5671"
+     - "5672:5672"
+     - "15671:15671"
+     - "25672:25672"
+     - "15672:15672"

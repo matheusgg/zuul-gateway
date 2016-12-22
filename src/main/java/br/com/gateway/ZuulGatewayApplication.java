@@ -1,10 +1,12 @@
 package br.com.gateway;
 
-import br.com.gateway.properties.ZuulGatewayProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+
+import br.com.gateway.properties.ZuulGatewayProperties;
 
 /**
  * A diferenca entre as anotacoes @EnableZuulProxy e @EnableZuulServer é que a primeira habilita a auto configuracao do Zuul
@@ -16,6 +18,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @EnableZuulProxy
 //@EnableZuulServer
 @EnableConfigurationProperties(ZuulGatewayProperties.class)
+@EnableHystrixDashboard
 public class ZuulGatewayApplication {
 
 	public static void main(final String[] args) {

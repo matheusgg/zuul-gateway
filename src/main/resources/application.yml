@@ -1,21 +1,5 @@
-spring:
-  application:
-    name: zuul-gateway
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    registry-fetch-interval-seconds: 5
-    service-url:
-      defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/
-  instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 30
-
 server:
-  port: 8081
+  port: 8080
 
 logging:
   level:
@@ -23,6 +7,7 @@ logging:
 
 zuul:
 #  PreDecorationFilter.pre.disable: true
+#  RibbonRoutingFilter.route.disable: true
   retryable: true
   ignored-services: '*'
   prefix: /api
@@ -48,3 +33,7 @@ br.com.gateway:
   custom-headers:
     gateway-name: Zuul
     host-name: localhost
+  fallback:
+    spring-simple-service:
+      service-id: spring-simple-service2
+      url: http://localhost:8080/
