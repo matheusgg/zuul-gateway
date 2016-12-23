@@ -3,9 +3,10 @@ package br.com.gateway.fallback;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.route.ZuulFallbackProvider;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,8 +18,9 @@ import lombok.RequiredArgsConstructor;
 public class CustomZuulFallbackConfig {
 
 	private final ZuulGatewayProperties properties;
-	private final ApplicationContext context;
 	private final ProxyRequestHelper helper;
+	private final SpringClientFactory clientFactory;
+	private final ZuulProperties zuulProperties;
 
 	@Bean
 	public Set<ZuulFallbackProvider> createFallbackProviders() {
@@ -27,7 +29,8 @@ public class CustomZuulFallbackConfig {
 				.serviceId(serviceId)
 				.fallbackRoute(fallbackRoute)
 				.helper(this.helper)
-				.applicationContext(this.context)
+				.clientFactory(this.clientFactory)
+				.zuulProperties(this.zuulProperties)
 				.build()));
 		return providers;
 	}

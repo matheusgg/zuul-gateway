@@ -9,7 +9,7 @@ zuul:
 #  PreDecorationFilter.pre.disable: true
 #  RibbonRoutingFilter.route.disable: true
   retryable: true
-  ignored-services: '*'
+#  ignored-services: '*'
   prefix: /api
   strip-prefix: true
   servlet-path: /zuul
@@ -20,7 +20,10 @@ zuul:
       path: /simple/**
       sensitiveHeaders: testSensitive,Cookie,Set-Cookie,Authorization
     spring-simple-service2:
+      url: http://localhost:8082
       path: /simple2/**
+    spring-simple-service3:
+      path: /simple3/**
       url: forward:/internal
 
 spring-simple-service:
@@ -35,5 +38,5 @@ br.com.gateway:
     host-name: localhost
   fallback:
     spring-simple-service:
-      service-id: spring-simple-service2
-      url: http://localhost:8080/
+      service-id: spring-hystrix-service
+#      url: http://localhost:8081/
