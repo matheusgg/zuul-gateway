@@ -2,6 +2,7 @@ package br.com.gateway.fallback;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -115,17 +116,17 @@ public class CustomZuulFallbackProvider implements ZuulFallbackProvider {
 
 		@Override
 		public HttpStatus getStatusCode() throws IOException {
-			return HttpStatus.NO_CONTENT;
+			return NO_CONTENT;
 		}
 
 		@Override
 		public int getRawStatusCode() throws IOException {
-			return HttpStatus.NO_CONTENT.value();
+			return NO_CONTENT.value();
 		}
 
 		@Override
 		public String getStatusText() throws IOException {
-			return HttpStatus.NO_CONTENT.getReasonPhrase();
+			return NO_CONTENT.getReasonPhrase();
 		}
 
 		@Override
