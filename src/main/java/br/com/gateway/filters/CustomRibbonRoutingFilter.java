@@ -105,7 +105,7 @@ public class CustomRibbonRoutingFilter extends RibbonRoutingFilter {
 	}
 
 	private void handleException(final RequestContext context, final Exception ex, final int statusCode, final String message) {
-		log.info(ex.getMessage(), ex);
+		log.error(ex.getMessage(), ex);
 		context.set("error.exception", ex);
 		context.set("error.status_code", statusCode);
 		context.set("error.message", message);
