@@ -7,7 +7,7 @@ logging:
 
 zuul:
 #  PreDecorationFilter.pre.disable: true
-#  RibbonRoutingFilter.route.disable: true
+  RibbonRoutingFilter.route.disable: true
   retryable: true
 #  ignored-services: '*'
   prefix: /api
@@ -38,5 +38,5 @@ br.com.gateway:
     host-name: localhost
   fallback:
     spring-simple-service:
-      service-id: spring-hystrix-service
-#      url: http://localhost:8081/
+#      service-id: spring-hystrix-service
+      url: http://localhost:8081/
